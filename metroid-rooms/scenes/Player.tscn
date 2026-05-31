@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://cak6xi8pf4ws"]
+
+[ext_resource type="Script" uid="uid://bc0e5q60ri2hg" path="res://scripts/player/Player.cs" id="1_70d11"]
+[ext_resource type="Script" uid="uid://bgogo5gx7gec6" path="res://scripts/player/state machine/StateMachine.cs" id="1_p0vlq"]
+[ext_resource type="Script" uid="uid://dste1ax5s2djm" path="res://scripts/player/states/IdleState.cs" id="2_qu4a1"]
+[ext_resource type="Script" uid="uid://kqhbk45dpwgi" path="res://scripts/player/states/WalkState.cs" id="3_70d11"]
+[ext_resource type="Script" uid="uid://dwxjel07ighi8" path="res://scripts/player/states/FallState.cs" id="4_cw2d6"]
+[ext_resource type="Script" uid="uid://bh8lkdpo8l8c5" path="res://scripts/player/states/JumpState.cs" id="5_khinc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5q5h1"]
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("stateMachine", "Hitbox", "Sprite")]
+script = ExtResource("1_70d11")
+stateMachine = NodePath("StateMachine")
+Hitbox = NodePath("CollisionShape2D")
+Sprite = NodePath("Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5q5h1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState", "StateLabel")]
+script = ExtResource("1_p0vlq")
+InitialState = NodePath("IdleState")
+StateLabel = NodePath("../debug")
+
+[node name="IdleState" type="Node" parent="StateMachine"]
+script = ExtResource("2_qu4a1")
+
+[node name="WalkState" type="Node" parent="StateMachine"]
+script = ExtResource("3_70d11")
+
+[node name="FallState" type="Node" parent="StateMachine"]
+script = ExtResource("4_cw2d6")
+
+[node name="JumpState" type="Node" parent="StateMachine"]
+script = ExtResource("5_khinc")
+
+[node name="debug" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
