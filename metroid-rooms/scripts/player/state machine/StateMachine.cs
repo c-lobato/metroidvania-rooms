@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public partial class StateMachine : Node
 {
     [Export] public State InitialState;
-    [Export] public Label StateLabel;
+    [Export] public Player Player;
     public State CurrentState;
     public Dictionary<string, State> States = new();
 
@@ -75,8 +75,6 @@ public partial class StateMachine : Node
 		{
 			CurrentState.PhysicsUpdate(delta);
 		}
-
-		if (StateLabel != null) StateLabel.Text = CurrentState?.Name;
 	}
 
 	//para logica relacionada à inputs no teclado/mouse/controle/...

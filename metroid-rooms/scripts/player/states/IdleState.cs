@@ -5,27 +5,37 @@ public partial class IdleState : State
 {
     public override void Enter()
     {
-        //Anim.Play("idle");
-        
+        Player.Anim.Play("idle"); 
     }
     public override void Exit(){}
     public override void Update(double delta){}
 
     public override void PhysicsUpdate(double delta)
     {
-        //instanciamento do player para acesso
-        Player player = new Player();
-        var vel = player.Velocity;
+        
+        var vel = Player.Velocity;
         vel.X = 0;
         vel.Y = 0;
 
-        if (!player.IsOnFloor())
+        if (!Player.IsOnFloor())
         {
             stateMachine.ChangeState("FallState");
         }
 
-        player.Velocity = vel;
-        player.MoveAndSlide();
+        Player.Velocity = vel;
+        Player.MoveAndSlide();
     }
-    public override void HandleInput(){}
+    public override void HandleInput(InputEvent inputEvent)
+    {
+        if (Input.IsActionPressed("MoveLeft")||Input.IsActionPressed("MoveRight"))
+		{
+			stateMachine.ChangeState("WalkState");
+		}
+
+        if (Input.IsActionPressed("Jump"))
+		{
+			stateMachine.ChangeState("JumpState");
+		}
+
+    }
 }
