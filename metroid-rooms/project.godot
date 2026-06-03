@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="metroid-rooms"
+run/main_scene="uid://ru2d2hf514t4"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameData="*res://scripts/game/GameData.cs"
 
 [display]
 
